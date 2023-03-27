@@ -52,6 +52,7 @@ contract TimeLockedBank is ERC721Delegate, ReentrancyGuard {
   function createNFT(address recipient, uint256 amount, uint256 unlockDate) external nonReentrant returns (uint256) {
     require(recipient != address(0), 'zero address');
     require(amount > 0, 'zero amount');
+    require(unlockDate < block.timestamp + 1100 days, 'day guardrail');
     _tokenIds.increment();
     uint256 newItemId = _tokenIds.current();
     TransferHelper.transferTokens(token, msg.sender, address(this), amount);
@@ -73,6 +74,7 @@ contract TimeLockedBank is ERC721Delegate, ReentrancyGuard {
 
   function relockNFT(uint tokenId, uint unlockDate) external {
     require(ownerOf(tokenId) == msg.sender, '!owner');
+    require(unlockDate < block.timestamp + 1100 days, 'day guardrail');
     TimeLock storage tl = timeLocks[tokenId];
     require(unlockDate > tl.unlockDate && unlockDate > block.timestamp, 'unlock error');
     tl.unlockDate = unlockDate;
