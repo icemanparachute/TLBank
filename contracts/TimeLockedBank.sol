@@ -30,6 +30,7 @@ contract TimeLockedBank is ERC721Delegate, ReentrancyGuard {
   event NFTRedeemed(uint256 indexed tokenId, address indexed holder, uint256 amount);
   event NFTReLocked(uint256 indexed tokenId, address indexed holder, uint256 amount, uint256 unlockDate);
   event URISet(string _uri);
+  event AdminDeleted(address formerAdmin);
 
   constructor(string memory name, string memory symbol, address _token) ERC721(name, symbol) {
     token = _token;
@@ -47,15 +48,17 @@ contract TimeLockedBank is ERC721Delegate, ReentrancyGuard {
     require(msg.sender == admin, 'ADMIN');
     require(uriSet, 'not set');
     delete admin;
+    emit AdminDeleted(msg.sender);
   }
 
   function createNFT(address recipient, uint256 amount, uint256 unlockDate) external nonReentrant returns (uint256) {
     require(recipient != address(0), 'zero address');
     require(amount > 0, 'zero amount');
     require(unlockDate < block.timestamp + 1100 days, 'day guardrail');
+    require(unlockDate > block.timestamp, '!future');
+    TransferHelper.transferTokens(token, msg.sender, address(this), amount);
     _tokenIds.increment();
     uint256 newItemId = _tokenIds.current();
-    TransferHelper.transferTokens(token, msg.sender, address(this), amount);
     _safeMint(recipient, newItemId);
     timeLocks[newItemId] = TimeLock(amount, unlockDate);
     emit NFTCreated(newItemId, recipient, amount, unlockDate);
