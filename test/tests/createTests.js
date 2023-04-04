@@ -43,6 +43,11 @@ const createTest = (params) => {
     expect(await tl.ownerOf('2')).to.eq(b.address);
     expect(await bank.balanceOf(tl.address)).to.eq(amount.add(amount));
   });
+  it('transfers the NFT and the boolean is flipped on', async () => {
+    expect(await tl.wasTransferred('2')).to.eq(false);
+    await tl.connect(b).transferFrom(b.address, c.address, '2');
+    expect(await tl.wasTransferred('2')).to.eq(true);
+  });
 };
 
 const createErrorTests = () => {
