@@ -10,6 +10,6 @@ async function deploy(args) {
 
 const name = 'TimeLockedBank';
 const symbol = 'TLBANK';
-const bank = '0xf474f305d9abEe39c7814D83801151BedA386691';
+const tokenAddress = '';
 
-deploy([name, symbol, bank]);
+deploy([name, symbol, tokenAddress]);
