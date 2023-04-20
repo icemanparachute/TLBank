@@ -18,11 +18,23 @@ async function deleteAdmin(contractAddress) {
 
 // Primary user functions
 
+async function approveBank(privKey, bankAddress, tlbankAddress, amount) {
+    const wallet = new ethers.Wallet(privKey);
+    const bank = (await ethers.getContractFactory('Token')).attach(bankAddress);
+    const tx = await bank.connect(wallet).approve(tlbankAddress, amount);
+    console.log(tx.hash);
+}
+
 async function lockBank(privKey, contractAddress, bankAmount, unlockDate) {
     const wallet = new ethers.Wallet(privKey);
     const bank = (await ethers.getContractFactory('TimeLockedBank')).attach(contractAddress);
     const tx = await bank.connect(wallet).createNFT(wallet.address, bankAmount, unlockDate);
     console.log(tx.hash);
+}
+
+async function approveAndLockBank(privKey, bankAddress, tlBankAddrss, bankAmount, unlockDate) {
+    await approveBank(privKey, bankAddress, tlBankAddrss, bankAmount);
+    await lockBank(privKey, tlbankAddress, bankAmount, unlockDate);
 }
 
 async function redeemBank(privKey, contractAddress, nftId) {
