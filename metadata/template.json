@@ -1,0 +1,38 @@
+{
+  "name": "Time Locked Bank #1",
+  "description": "This TLBANK NFT represents a locked amount of BANK, redeemable after the unlock date.\n\n The token locked is: [BANK](https://goerli.etherscan.io/token/0x077154D2931eEC781f8F1a1D0a23Ce6Ef896a2ac)\n\n Tokens Locked: 100\n\n Unlock Date: Jan 1, 2025",
+  "image": "https://nft.hedgey.finance/ethereum/0x2aa5d15eb36e5960d056e8fea6e7bb3e2a06a351/1.png",
+  "edition": 1,
+  "date": 1669918987280,
+  "attributes": [
+    { "trait_type": "BANK Note", "value": "Standard Bank Note" },
+    {
+      "trait_type": "Token_Collateral",
+      "value": "BANK: 0x077154D2931eEC781f8F1a1D0a23Ce6Ef896a2ac"
+    },
+    { "trait_type": "Tokens_Locked", "value": "100 BANK" },
+    {
+      "trait_type": "Number_Of_Locked_Tokens",
+      "value": 100,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Unlock_Date",
+      "value": "1735732800",
+      "display_type": "date"
+    }
+  ],
+  "series": "1",
+  "external_url": "https://... tbd",
+  "network": "Ethereum",
+  "assetCurrency": {
+    "address": "0x077154D2931eEC781f8F1a1D0a23Ce6Ef896a2ac",
+    "name": "Bankless DAO",
+    "ticker": "BANK",
+    "decimals": 18,
+    "amount": "100"
+  },
+  "unlockDate": "January 1, 2025 at 12:00:00 PM UTC",
+  "unlockTimestamp": "1735732800",
+  "transferred": "false"
+}
