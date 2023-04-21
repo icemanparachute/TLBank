@@ -15,28 +15,28 @@ const paramsMatrix = [
   { amount: C.E18_13, unlockShift: 1500, relockShift: 7250, load: C.E18_100 },
 ];
 
-// describe('it tests the deploy and admin functions', () => {
-//   adminTests();
-// });
+describe('it tests the deploy and admin functions', () => {
+  adminTests();
+});
 
-// describe('It goes through the happy path to deploy, create a TimeLockedBank NFT, relock and then redeem', () => {
-//   paramsMatrix.forEach((param) => {
-//     happyPath(param);
-//   });
-// });
+describe('It goes through the happy path to deploy, create a TimeLockedBank NFT, relock and then redeem', () => {
+  paramsMatrix.forEach((param) => {
+    happyPath(param);
+  });
+});
 
-// describe('The creating tests and create error tests', () => {
-//   paramsMatrix.forEach((param) => {
-//     createTest(param);
-//   });
-//   createErrorTests();
-// });
+describe('The creating tests and create error tests', () => {
+  paramsMatrix.forEach((param) => {
+    createTest(param);
+  });
+  createErrorTests();
+});
 
-// describe('Testing for redemption methods', () => {
-//   paramsMatrix.forEach((param) => {
-//     redeemTest(param);
-//   });
-// });
+describe('Testing for redemption methods', () => {
+  paramsMatrix.forEach((param) => {
+    redeemTest(param);
+  });
+});
 
 describe('Testing for the relock methods and errors', () => {
   paramsMatrix.forEach((param) => {
