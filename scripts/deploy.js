@@ -7,7 +7,7 @@ async function deploy(args, uriBase) {
     console.log(`new TLBank Address: ${tlBank.address}`);
     console.log(`args for etherscan verify: ${args}`);
     const uri = `${uriBase}${tlBank.address.toLowerCase()}/`
-    const tx = await bank.updateBaseURI(uri);
+    const tx = await tlBank.updateBaseURI(uri);
     console.log(`uriHash: ${tx.hash}`);
 }
 
@@ -23,6 +23,6 @@ const name = 'TimeLockedBank';
 const symbol = 'TLBANK';
 const tokenAddress = '0x077154D2931eEC781f8F1a1D0a23Ce6Ef896a2ac';
 
-deploy([name, symbol, tokenAddress]);
+deploy([name, symbol, tokenAddress], '');
 
 //deployTestBank(['5000000000000000000000000','BanklessT', 'BANKT']);
