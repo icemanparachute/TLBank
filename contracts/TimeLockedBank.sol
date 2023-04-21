@@ -89,7 +89,7 @@ contract TimeLockedBank is ERC721Delegate, ReentrancyGuard {
   function loadNFT(uint256 tokenId, uint256 additionalAmount) external {
     TimeLock storage tl = timeLocks[tokenId];
     require(tl.amount > 0, 'token redeemed');
-    require(additionalAmount > 0, 'cant add 0');
+    require(additionalAmount > 0, 'no load');
     TransferHelper.transferTokens(token, msg.sender, address(this), additionalAmount);
     tl.amount += additionalAmount;
     emit NFTLoaded(tokenId, msg.sender, tl.amount, tl.unlockDate);
@@ -100,7 +100,7 @@ contract TimeLockedBank is ERC721Delegate, ReentrancyGuard {
     require(relockDate < block.timestamp + 1100 days, 'day guardrail');
     TimeLock storage tl = timeLocks[tokenId];
     require(relockDate > tl.unlockDate && relockDate > block.timestamp, 'unlock error');
-    require(additionalAmount > 0, 'cant add 0');
+    require(additionalAmount > 0, 'no load');
     TransferHelper.transferTokens(token, msg.sender, address(this), additionalAmount);
     tl.amount += additionalAmount;
     tl.unlockDate = relockDate;

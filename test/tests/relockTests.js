@@ -76,6 +76,9 @@ const relockErrorTest = () => {
     relock = unlock - 1;
     await expect(tl.connect(a).relockNFT('1', relock)).to.be.revertedWith('unlock error');
   });
+  it('reverts if it tries to relock a not minted NFT', async () => {
+    await expect(tl.connect(a).relockNFT('20', relock)).to.be.reverted;
+  });
 };
 
 module.exports = {
