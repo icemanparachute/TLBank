@@ -5,7 +5,7 @@ const { ethers } = require("hardhat");
 
 async function updateURI(contractAddress, uri) {
     const bank = (await ethers.getContractFactory('TimeLockedBank')).attach(contractAddress);
-    const tx = await bank.connect(wallet).updateBaseURI(uri);
+    const tx = await bank.updateBaseURI(uri);
     console.log(tx.hash);
 }
 
