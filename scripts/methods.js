@@ -51,6 +51,20 @@ async function relockBank(privKey, contractAddress, nftId, unlockDate) {
     console.log(tx.hash);
 }
 
+async function lockBank(privKey, contractAddress, nftId, additionalAmount) {
+    const wallet = new ethers.Wallet(privKey);
+    const bank = (await ethers.getContractFactory('TimeLockedBank')).attach(contractAddress);
+    const tx = await bank.connect(wallet).loadNFT(nftId, additionalAmount);
+    console.log(tx.hash);
+}
+
+async function locknloadBank(privKey, contractAddress, nftId, additionalAmount, unlockDate) {
+    const wallet = new ethers.Wallet(privKey);
+    const bank = (await ethers.getContractFactory('TimeLockedBank')).attach(contractAddress);
+    const tx = await bank.conect(wallet).locknLoadNFT(nftId, additionalAmount, unlockDate);
+    console.log(tx.hash);
+}
+
 async function delegateNFT(privKey, contractAddress, nftId, delegate) {
     const wallet = new ethers.Wallet(privKey);
     const bank = (await ethers.getContractFactory('TimeLockedBank')).attach(contractAddress);

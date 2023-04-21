@@ -29,6 +29,8 @@ contract TimeLockedBank is ERC721Delegate, ReentrancyGuard {
   event NFTCreated(uint256 indexed tokenId, address indexed recipient, uint256 amount, uint256 unlockDate);
   event NFTRedeemed(uint256 indexed tokenId, address indexed holder, uint256 amount);
   event NFTReLocked(uint256 indexed tokenId, address indexed holder, uint256 amount, uint256 unlockDate);
+  event NFTLoaded(uint256 indexed tokenId, address indexed holder, uint256 amount, uint256 unlockDate);
+  event NFTLockedAndLoaded(uint256 indexed tokenId, address indexed holder, uint256 amount, uint256 unlockDate);
   event URISet(string _uri);
   event AdminDeleted(address formerAdmin);
 
@@ -75,16 +77,37 @@ contract TimeLockedBank is ERC721Delegate, ReentrancyGuard {
     emit NFTRedeemed(tokenId, msg.sender, tl.amount);
   }
 
-  function relockNFT(uint tokenId, uint unlockDate) external {
+  function relockNFT(uint256 tokenId, uint relockDate) external {
     require(ownerOf(tokenId) == msg.sender, '!owner');
-    require(unlockDate < block.timestamp + 1100 days, 'day guardrail');
+    require(relockDate < block.timestamp + 1100 days, 'day guardrail');
     TimeLock storage tl = timeLocks[tokenId];
-    require(unlockDate > tl.unlockDate && unlockDate > block.timestamp, 'unlock error');
-    tl.unlockDate = unlockDate;
-    emit NFTReLocked(tokenId, msg.sender, tl.amount, unlockDate);
+    require(relockDate > tl.unlockDate && relockDate > block.timestamp, 'unlock error');
+    tl.unlockDate = relockDate;
+    emit NFTReLocked(tokenId, msg.sender, tl.amount, relockDate);
   }
 
-  function delegateNFT(address delegate, uint tokenId) external {
+  function loadNFT(uint256 tokenId, uint256 additionalAmount) external {
+    TimeLock storage tl = timeLocks[tokenId];
+    require(tl.amount > 0, 'token redeemed');
+    require(additionalAmount > 0, 'cant add 0');
+    TransferHelper.transferTokens(token, msg.sender, address(this), additionalAmount);
+    tl.amount += additionalAmount;
+    emit NFTLoaded(tokenId, msg.sender, tl.amount, tl.unlockDate);
+  }
+
+  function locknLoadNFT(uint256 tokenId, uint256 additionalAmount, uint256 relockDate) external {
+    require(ownerOf(tokenId) == msg.sender, '!owner');
+    require(relockDate < block.timestamp + 1100 days, 'day guardrail');
+    TimeLock storage tl = timeLocks[tokenId];
+    require(relockDate > tl.unlockDate && relockDate > block.timestamp, 'unlock error');
+    require(additionalAmount > 0, 'cant add 0');
+    TransferHelper.transferTokens(token, msg.sender, address(this), additionalAmount);
+    tl.amount += additionalAmount;
+    tl.unlockDate = relockDate;
+    emit NFTLockedAndLoaded(tokenId, msg.sender, tl.amount, tl.unlockDate);
+  }
+
+  function delegateNFT(address delegate, uint256 tokenId) external {
     _delegateToken(delegate, tokenId);
   }
 
