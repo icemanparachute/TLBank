@@ -33,5 +33,5 @@ You can use the methods.js file to send transactions to the TLBank contract. Be 
 Then you can use the below command in the terminal to send the transaction.  
 
 ``` bash
-npx hardhat run scripts/methods.js -network <network-name>
+npx hardhat run scripts/methods.js --network <network-name>
 ```

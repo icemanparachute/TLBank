@@ -32,9 +32,9 @@ async function lockBank(privKey, contractAddress, bankAmount, unlockDate) {
     console.log(tx.hash);
 }
 
-async function approveAndLockBank(privKey, bankAddress, tlBankAddrss, bankAmount, unlockDate) {
-    await approveBank(privKey, bankAddress, tlBankAddrss, bankAmount);
-    await lockBank(privKey, tlbankAddress, bankAmount, unlockDate);
+async function approveAndLockBank(privKey, bankAddress, tlBankAddress, bankAmount, unlockDate) {
+    await approveBank(privKey, bankAddress, tlBankAddress, bankAmount);
+    await lockBank(privKey, tlBankAddress, bankAmount, unlockDate);
 }
 
 async function redeemBank(privKey, contractAddress, nftId) {

@@ -13,13 +13,18 @@
     { "trait_type": "Tokens_Locked", "value": "100 BANK" },
     {
       "trait_type": "Number_Of_Locked_Tokens",
-      "value": 100,
+      "value": 40000,
       "display_type": "number"
     },
     {
       "trait_type": "Unlock_Date",
       "value": "1735732800",
       "display_type": "date"
+    },
+    {
+      "trait_type": "Transferred",
+      "value": "false",
+      "display_type": "string"
     }
   ],
   "series": "1",
@@ -30,7 +35,7 @@
     "name": "Bankless DAO",
     "ticker": "BANK",
     "decimals": 18,
-    "amount": "100"
+    "amount": "40000"
   },
   "unlockDate": "January 1, 2025 at 12:00:00 PM UTC",
   "unlockTimestamp": "1735732800",
