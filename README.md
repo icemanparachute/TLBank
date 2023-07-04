@@ -25,8 +25,8 @@ Afterwards using the etherscan verify plugin you can verify the network with the
 ``` bash
 npx hardhat verify --newtork <network-name> <contract_addresss> <tokenName> <tokenSymbol> <banklessTokenAddress>
 ```
-
-Currently deployed to Goerli Network: `0xD106E28bDcDF9052EC0845754A5a27303FC8095C `  
+# Current Deployments
+`0xeaEAb9f1B25fa00FC01a3fcE521b47E88527Aa02` deployed to Ethereum Mainnet, with BANK token address: `0x2d94AA3e47d9D5024503Ca8491fcE9A2fB4DA198` 
 
 # Sending Transactions
 You can use the methods.js file to send transactions to the TLBank contract. Be sure to input your private key and the desired parameters. All function inputs should be a string, including the amount and unlock date. 
